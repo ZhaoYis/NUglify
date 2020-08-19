@@ -710,12 +710,18 @@ namespace NUglify.JavaScript
                 case '?':
                     token = JSToken.ConditionalIf;
                     ++m_currentPosition;
-
+					
                     ch = GetChar(m_currentPosition);
                     if ('?' == ch)
                     {
+                        token = JSToken.OptionalChaining;
                         ++m_currentPosition;
                         token = JSToken.NullCoalesce;
+                    }
+					else if ('.' == GetChar(m_currentPosition))
+                    {
+                        token = JSToken.OptionalChaining;
+                        ++m_currentPosition;
                     }
 
                     break;
